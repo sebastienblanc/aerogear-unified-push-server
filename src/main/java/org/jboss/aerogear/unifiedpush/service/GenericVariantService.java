@@ -17,6 +17,7 @@
 package org.jboss.aerogear.unifiedpush.service;
 
 import org.jboss.aerogear.unifiedpush.api.Variant;
+import org.jboss.aerogear.unifiedpush.model.AndroidVariant;
 import org.jboss.aerogear.unifiedpush.model.InstallationImpl;
 
 public interface GenericVariantService {
@@ -24,5 +25,7 @@ public interface GenericVariantService {
     Variant findByVariantID(String variantID);
 
     void addInstallation(Variant variant, InstallationImpl installation);
+
+    Variant updateVariant(Variant variant);
 
 }

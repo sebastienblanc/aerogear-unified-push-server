@@ -49,7 +49,7 @@ import java.util.UUID;
 @TransactionAttribute
 @Path("/applications/{pushAppID}/android")
 @Secure( { "developer", "admin" })
-public class AndroidVariantEndpoint extends AbstractBaseEndpoint {
+public class AndroidVariantEndpoint extends AbstractVariantEndpoint {
 
     @Inject
     private PushApplicationService pushAppService;
@@ -158,25 +158,6 @@ public class AndroidVariantEndpoint extends AbstractBaseEndpoint {
         return Response.status(Status.NOT_FOUND).entity("Could not find requested Variant").build();
     }
 
-    // UPDATE (Secret Reset)
-    @PUT
-    @Path("/{androidID}/reset")
-    @Consumes(MediaType.APPLICATION_JSON)
-    public Response resetSecret(@PathParam("androidID") String androidID) {
-
-        AndroidVariant androidVariant = androidVariantService.findByVariantIDForDeveloper(androidID, loginName.get());
-
-        if (androidVariant != null) {
-            // generate the new 'secret' and apply it:
-            String newSecret = UUID.randomUUID().toString();
-            androidVariant.setSecret(newSecret);
-            androidVariantService.updateAndroidVariant(androidVariant);
-
-            return Response.ok(androidVariant).build();
-        }
-
-        return Response.status(Status.NOT_FOUND).entity("Could not find requested PushApplication").build();
-    }
 
     // DELETE
     @DELETE
