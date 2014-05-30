@@ -17,7 +17,7 @@
 'use strict';
 
 angular.module('newadminApp').controller('MainController',
-  function($rootScope, $scope, $modal, pushApplication, Notifications) {
+  function($rootScope, $scope, $modal, pushApplication, Notifications, Auth) {
 
   /*
    * INITIALIZATION
@@ -28,7 +28,9 @@ angular.module('newadminApp').controller('MainController',
   //let's show all the applications
   $scope.applications = pushApplication.query();
 
-  $scope.logout = function() { Auth.logout() };
+  $scope.logout = function() {
+    Auth.logout();
+  };
 
   /*
    * PUBLIC METHODS
