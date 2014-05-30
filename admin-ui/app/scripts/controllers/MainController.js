@@ -28,7 +28,7 @@ angular.module('newadminApp').controller('MainController',
   //let's show all the applications
   $scope.applications = pushApplication.query();
 
-
+  $scope.logout = function() { Auth.logout() };
 
   /*
    * PUBLIC METHODS

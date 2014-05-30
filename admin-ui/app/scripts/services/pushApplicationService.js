@@ -82,6 +82,19 @@ backendMod.factory('installations', function ($resource) {
   });
 });
 
+backendMod.factory('Auth', function() {
+  var loggedIn = false; // this is private
+
+  return {
+    login: function() {
+      console.log("it works and call the cops");
+    },
+    logout: function() {
+      console.log("it works and call the cops");
+    }
+  };
+});
+
 backendMod.factory('breadcrumbs', function ($rootScope, $route) {
   var BreadcrumbService = {
     breadcrumbs: [],
@@ -121,7 +134,7 @@ backendMod.factory('breadcrumbs', function ($rootScope, $route) {
         var label = route.crumb.label.indexOf('$') !== -1 ? $rootScope.$eval(route.crumb.label.substring(1)) : route.crumb.label;
         self.breadcrumbs.push({ label: label, path: route.path });
       }
-      
+
       this.breadcrumbs = [];
       if ($route.current && $route.current.crumb) {
         label($route.current);
