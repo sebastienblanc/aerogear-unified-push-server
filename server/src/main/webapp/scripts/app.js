@@ -10,14 +10,14 @@ angular.module('newadminApp', [
 ])
   .config(function ($routeProvider) {
     $routeProvider
-      /*.when('/', {
+      .when('/', {
         templateUrl: 'views/main.html',
         controller: 'MainController',
         crumb: {
           level: 0,
           label: 'Applications'
         }
-      })*/
+      })
       .when('/detail/:applicationId', {
         templateUrl: 'views/detail.html',
         controller: 'DetailController',
@@ -58,9 +58,9 @@ angular.module('newadminApp', [
           label: 'Compose'
         }
       })
-      /*.otherwise({
+      .otherwise({
         redirectTo: '/'
-      });*/
+      });
 
   });
 
