@@ -24,19 +24,14 @@ import org.jboss.aerogear.unifiedpush.utils.AeroGearLogger;
 import org.jboss.aerogear.unifiedpush.rest.util.HttpBasicHelper;
 import org.jboss.aerogear.unifiedpush.service.ClientInstallationService;
 import org.jboss.aerogear.unifiedpush.service.GenericVariantService;
+import org.jboss.resteasy.annotations.GZIP;
 import org.jboss.resteasy.annotations.providers.multipart.MultipartForm;
 
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.DELETE;
-import javax.ws.rs.OPTIONS;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
@@ -254,6 +249,23 @@ public class InstallationRegistrationEndpoint {
         // return directly, the above is async and may take a bit :-)
         return Response.status(Status.OK)
                 .entity("Job submitted for processing").build();
+    }
+
+    @GET
+    @Path("/exporter")
+    @Produces(MediaType.APPLICATION_JSON)
+    @GZIP
+    public Response exportInstallations(@Context HttpServletRequest request) {
+        // find the matching variation:
+        final Variant variant = loadVariantWhenAuthorized(request);
+        if (variant == null) {
+            return appendAllowOriginHeader(
+                    Response.status(Status.UNAUTHORIZED)
+                            .header("WWW-Authenticate", "Basic realm=\"AeroGear UnifiedPush Server\"")
+                            .entity("Unauthorized Request"),
+                    request);
+        }
+        return null;
     }
 
     private ResponseBuilder appendPreflightResponseHeaders(HttpHeaders headers, ResponseBuilder response) {
