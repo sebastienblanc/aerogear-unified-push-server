@@ -17,7 +17,7 @@
 'use strict';
 
 angular.module('upsConsole').controller('DetailController',
-  function($rootScope, $scope, $routeParams, $location, $modal, pushApplication, variants, Notifications, breadcrumbs, application, counts, ContextProvider, metrics) {
+  function($rootScope, $scope, $routeParams, $location, $modal, pushApplication, variants, exportImport, Notifications, breadcrumbs, application, counts, ContextProvider, metrics) {
 
   /*
    * INITIALIZATION
@@ -140,6 +140,25 @@ angular.module('upsConsole').controller('DetailController',
       variants.reset(params, function (updatedVariant) {
         variant.secret = updatedVariant.secret;
         Notifications.success('Successfully renewed secret for variant "' + updatedVariant.name + '"');
+      });
+    });
+  };
+
+  $scope.exportInstallations = function (variant) {
+    var modalInstance = show(variant, 'export-installations.html');
+    modalInstance.result.then(function () {
+      var params = {
+        variantId: variant.variantID
+      };
+      exportImport.export(params, function (content) {
+        var hiddenElement = document.createElement('a');
+
+        hiddenElement.href = 'data:attachment/json,' + encodeURI(JSON.stringify(content));
+        hiddenElement.target = '_blank';
+        hiddenElement.download = 'myFile.json';
+        hiddenElement.click();
+
+        Notifications.success('Successfully exported installations "');
       });
     });
   };
