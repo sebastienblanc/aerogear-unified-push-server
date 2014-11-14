@@ -120,6 +120,7 @@ backendMod.factory('installations', function ($resource, $q) {
   return installationsService;
 });
 
+
 backendMod.factory('exporter', function ($resource ) {
   return $resource('rest/export/:variantId/installations', {}, {
     export: {
