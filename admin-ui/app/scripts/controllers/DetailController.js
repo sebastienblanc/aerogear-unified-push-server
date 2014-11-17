@@ -116,7 +116,7 @@ angular.module('upsConsole').controller('DetailController',
       });
     });
   };
-    
+
   $scope.renewMasterSecret = function () {
     var modalInstance = show(null, 'renew-master-secret.html');
     modalInstance.result.then(function () {
@@ -145,6 +145,7 @@ angular.module('upsConsole').controller('DetailController',
   };
 
   $scope.exportInstallations = function (variant) {
+    variant.total = counts[variant.type];
     var modalInstance = show(variant, 'export-installations.html');
     modalInstance.result.then(function () {
       var params = {
@@ -155,7 +156,7 @@ angular.module('upsConsole').controller('DetailController',
 
         hiddenElement.href = 'data:attachment/json,' + encodeURI(JSON.stringify(content));
         hiddenElement.target = '_blank';
-        hiddenElement.download = 'myFile.json';
+        hiddenElement.download = variant.variantID + '.json';
         hiddenElement.click();
 
         Notifications.success('Successfully exported installations "');
