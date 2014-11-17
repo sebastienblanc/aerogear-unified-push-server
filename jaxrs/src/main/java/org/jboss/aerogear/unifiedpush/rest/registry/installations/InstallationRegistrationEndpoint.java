@@ -250,44 +250,8 @@ public class InstallationRegistrationEndpoint extends AbstractBaseEndpoint {
     }
 
     /**
-     * API for exporting as JSON file device installations for a given variant.
-     * The Endpoint is protected using <code>HTTP Basic</code> (credentials <code>VariantID:secret</code>).
-     *
-     * <pre>
-     * curl -u "variantID:secret"
-     *   -v -H "Accept: application/json" -H "Content-type: multipart/form-data"
-     *   -F "file=@/path/to/my-devices-for-import.json"
-     *   -X POST
-     *   https://SERVER:PORT/context/rest/registry/device/importer
-     * </pre>
-     *
-     * The format of the JSON file is an array, containing several objects that follow the same syntax used on the
-     * <code>/rest/registry/device</code> endpoint.
-     * <p/>
-     * Here is an example:
-     *
-     * <pre>
-     * [
-     *   {
-     *     "deviceToken" : "someTokenString",
-     *     "deviceType" : "iPad",
-     *     "operatingSystem" : "iOS",
-     *     "osVersion" : "6.1.2",
-     *     "alias" : "someUsername or email adress...",
-     *     "categories" : ["football", "sport"]
-     *   },
-     *   {
-     *     "deviceToken" : "someOtherTokenString",
-     *     ...
-     *   },
-     *   ...
-     * ]
-     * </pre>
-     *
-     * @HTTP 200 (OK) Successful submission of import job.
-     * @HTTP 400 (Bad Request) The format of the client request was incorrect.
-     * @HTTP 401 (Unauthorized) The request requires authentication.
-     * @HTTP 404 (Not Found) The requested Variant resource does not exist.
+     * Endpoint for exporting as JSON file device installations for a given variant.
+     * Only Keycloak authneitcated can access it
      */
     @GET
     @Path("/exporter/{variantId}")
