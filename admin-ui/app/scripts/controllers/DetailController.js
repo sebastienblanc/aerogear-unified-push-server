@@ -164,7 +164,16 @@ angular.module('upsConsole').controller('DetailController',
     });
   };
 
-
+  $scope.importInstallations = function (variant) {
+    var modalInstance = show(variant, 'import-installations.html');
+    modalInstance.result.then(function () {
+      $http.defaults.headers.common.Authorization = 'Basic ' + btoa(variant.variantID+
+      ':' + variant.variantSecret);
+      importer.import(null,function(){
+        Notifications.success('Successfully imported installations "');
+      });
+    });
+  };
   /*
    * PRIVATE FUNCTIONS
    */
