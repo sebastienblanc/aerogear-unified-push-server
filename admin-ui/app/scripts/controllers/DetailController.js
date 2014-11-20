@@ -165,11 +165,14 @@ angular.module('upsConsole').controller('DetailController',
   };
 
   $scope.importInstallations = function (variant) {
+    variant.installations = [];
     var modalInstance = show(variant, 'import-installations.html');
-    modalInstance.result.then(function () {
+    modalInstance.result.then(function (result) {
+      var fd = new FormData();
+      fd.append('file', result.variant.installations[0]);
       $http.defaults.headers.common.Authorization = 'Basic ' + btoa(variant.variantID+
-      ':' + variant.variantSecret);
-      importer.import(null,function(){
+      ':' + variant.secret);
+      importer.import(null,fd,function(){
         Notifications.success('Successfully imported installations "');
       });
     });

@@ -134,7 +134,9 @@ backendMod.factory('importer', function ($resource ) {
   return $resource('rest/registry/device/importer', {}, {
     import: {
       method: 'POST',
-      headers: {'Content-Type': 'multipart/form-data'}
+      headers: {'Content-Type': undefined},
+      withCredentials: true,
+      transformRequest: angular.identity
     }
   });
 });
