@@ -110,6 +110,7 @@ angular.module('upsConsole').controller('DetailController',
       variants.remove(params, function () {
         var osVariants = $scope.application.variants;
         osVariants.splice(osVariants.indexOf(variant), 1);
+        updateCounts();
         Notifications.success('Successfully removed variant');
       }, function () {
         Notifications.error('Something went wrong...');
@@ -175,14 +176,18 @@ angular.module('upsConsole').controller('DetailController',
       ':' + variant.secret);
       importer.import(null,fd,function(){
         $rootScope.isViewLoading = false;
-        $scope.counts = pushApplication.count({appId: $scope.application.pushApplicationID}).$promise;
         Notifications.success('Successfully imported installations "');
+        updateCounts();
       });
     });
   };
   /*
    * PRIVATE FUNCTIONS
    */
+
+  function updateCounts() {
+    $scope.counts = pushApplication.count({appId: $scope.application.pushApplicationID});
+  }
 
   function modalController($scope, $modalInstance, variant) {
     $scope.variant = variant;
