@@ -17,7 +17,7 @@
       </p>
     </div>
     <div class="modal-footer">
-      <button type="submit" class="btn btn-primary text-left" ng-click="ok(variant)">Import</button>
+      <button ng-disabled="!importPreview" type="submit" class="btn btn-primary text-left" ng-click="ok(variant)">Import</button>
       <button type="button" class="btn btn-default" ng-click="cancel()">Cancel</button>
     </div>
   </div>
