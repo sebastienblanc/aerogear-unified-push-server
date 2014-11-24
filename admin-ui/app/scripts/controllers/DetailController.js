@@ -206,6 +206,18 @@ angular.module('upsConsole').controller('DetailController',
     $scope.cancel = function () {
       $modalInstance.dismiss('cancel');
     };
+
+    //preview function for the import
+    $scope.previewImport = function() {
+      if (window.File && window.FileList && window.FileReader) {
+        var importFiles = variant.installations[0];
+        var fileReader = new FileReader();
+        fileReader.readAsText(importFiles);
+        fileReader.onload = function(e) {
+          $scope.importPreview = JSON.parse(e).length;
+        };
+      }
+    };
   }
 
   function show(variant, template) {
