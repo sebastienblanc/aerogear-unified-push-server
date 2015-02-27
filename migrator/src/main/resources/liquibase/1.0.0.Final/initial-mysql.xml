@@ -87,10 +87,10 @@
         <preConditions onFail="MARK_RAN">
             <dbms type="mysql"/>
             <not>
-                <tableExists tableName="Installation_categories"/>
+                <tableExists tableName="installation_categories"/>
             </not>
         </preConditions>
-        <createTable tableName="Installation_categories">
+        <createTable tableName="installation_categories">
             <column name="Installation_id" type="VARCHAR(255)">
                 <constraints nullable="false"/>
             </column>
@@ -319,11 +319,11 @@
         <preConditions onFail="MARK_RAN">
             <dbms type="mysql"/>
             <not>
-                <foreignKeyConstraintExists foreignKeyTableName="Installation_categories"
+                <foreignKeyConstraintExists foreignKeyTableName="installation_categories"
                                             foreignKeyName="FK_7jk4ols9cel7xo5bi10yk1gvl"/>
             </not>
         </preConditions>
-        <addForeignKeyConstraint baseColumnNames="Installation_id" baseTableName="Installation_categories"
+        <addForeignKeyConstraint baseColumnNames="Installation_id" baseTableName="installation_categories"
                                  constraintName="FK_7jk4ols9cel7xo5bi10yk1gvl" deferrable="false"
                                  initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
                                  referencedColumnNames="id" referencedTableName="Installation"/>
