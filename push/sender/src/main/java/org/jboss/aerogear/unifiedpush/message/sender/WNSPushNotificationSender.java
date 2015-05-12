@@ -98,7 +98,14 @@ public class WNSPushNotificationSender implements PushNotificationSender {
             logger.fine("Message to WNS has been submitted");
             senderCallback.onSuccess();
         } catch (WnsException exception) {
-            senderCallback.onError(exception.getMessage());
+            //if the payload is invalid, WNS will return a really long message that can not be persisted,
+            //in this case we replace it with a generic error message,
+            if(exception.getMessage().length() > 200) {
+                senderCallback.onError("WNS Invalid payload, please check https://msdn.microsoft.com/en-us/library/windows/apps/dn457490.aspx");
+            }
+            else {
+                senderCallback.onError(exception.getMessage());
+            }
         } catch (IllegalArgumentException iae) {
             senderCallback.onError(iae.getMessage());
         }
